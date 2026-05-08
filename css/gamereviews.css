@@ -1,0 +1,818 @@
+body{
+  margin: 0;
+  padding: 0;
+   font-family: 'Segoe UI', sans-serif;
+}
+/* --- Base Header Styling --- */
+.main-header {
+  display: flex;
+  justify-content: space-between; /* Logo left, Nav right */
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #FAF9F6;
+  position: relative;
+  z-index: 1000;
+}
+
+/* --- Logo Grid (From previous step) --- */
+.logo-layout {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  align-items: end;
+  line-height: 0.8;
+}
+.logo-top { grid-column: 1; grid-row: 1; font-size: 18px; margin: 0; }
+.logo-bottom { grid-column: 1 / span 2; grid-row: 2; font-size: 28px; margin: 0; font-weight: 800; }
+.logo-icon { grid-column: 2; grid-row: 1; width: 40px; }
+
+/* --- Navigation & Underline --- */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a.active::after, .nav-links a:hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0; left: 0;
+  background: #ff4b2b;
+}
+
+/* --- The "Auto-Hide" Logic for Laptop/Mobile --- */
+#nav-check { display: none; } /* Hide the actual checkbox */
+.nav-toggler { display: none; cursor: pointer; } /* Hide button on big screens */
+
+@media (max-width: 800px) {
+  .nav-toggler {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .nav-toggler span {
+    width: 25px; height: 3px; background: #333; border-radius: 2px;
+  }
+
+  .nav-links {
+    display: none; /* THIS REMOVES THE LINKS WHEN MINIMIZED */
+    position: absolute;
+    top: 100%; left: 0; width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .nav-links a { margin: 10px 0; font-size: 16px; }
+
+  /* When checkbox is clicked via the toggler, show the links */
+  #nav-check:checked ~ .nav-links {
+    display: flex;
+  }
+}
+/* --- Header Fix --- */
+
+/* Container for the text + icon */
+.logo-wrapper {
+  display: flex;
+  align-items: center; /* Vertically aligns icon with the text center */
+  text-decoration: none; /* Removes underline if you use an <a> tag */
+  gap: 2px; /* Space between text and gamepad */
+}
+
+/* Keeps POCKET and PIXELS stacked */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85; /* Brings the two words closer together vertically */
+}
+
+.logo-top {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.logo-bottom {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 32px; /* Larger as seen in the target image */
+  color: #444;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -1px; /* Tighter look */
+}
+
+/* Icon Sizing */
+.logo-icon {
+  width: 65px; /* Adjust to match your preference */
+  height: auto;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); /* Adds subtle depth */
+}
+/* 1. Define the movement */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); } /* Moves up 8 pixels */
+  100% { transform: translateY(0px); }
+}
+
+/* 2. Apply it to your icon */
+.logo-icon {
+  width: 50px;
+  height: auto;
+  animation: float 3s ease-in-out infinite; /* Runs forever */
+}
+/* Smooth transition for the icon and text */
+.logo-wrapper {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* When you hover over the logo area */
+.logo-wrapper:hover {
+  transform: scale(1.05); /* Entire logo grows slightly */
+}
+
+.logo-wrapper:hover .logo-icon {
+  transform: rotate(15deg); /* Gamepad tilts playfully */
+  filter: drop-shadow(0 0 8px rgba(255, 75, 43, 0.6)); /* Adds a glow */
+}
+
+
+
+
+.nav-links a {
+  font-family: 'Segoe UI', sans-serif;
+  text-decoration: none;
+  color: black;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+}
+.extra-links {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.extra-links a {
+  display: block;
+  margin: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Remove gaps from the very edge of the browser */
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  padding-bottom: 5px; /* Space for the underline */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* The hover underline effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff4b2b; /* Matches your button color */
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* Line grows to full width on hover */
+}
+
+.nav-links a:hover {
+  color: #ff4b2b;
+}
+
+/* The 'Selected' or Active state */
+.nav-links a.active::after {
+  width: 100%; /* Line stays full width for the current page */
+}
+
+.nav-links a.active {
+  color: #ff4b2b;
+}
+
+/* Ensure smooth transitions when content changes */
+#reviews-display-area {
+    transition: opacity 0.3s ease-in-out;
+    padding: 40px;
+}
+
+/* Back Button Styling */
+#back-btn {
+    background: #ff4b2b;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* Professional Article Styling */
+.review-title {
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.review-intro::first-letter {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff4b2b;
+    float: left;
+    margin-right: 8px;
+    line-height: 1;
+}
+
+/* Image Layouts */
+.image-full img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 25px;
+}
+
+/* 1. THE CONTAINER */
+.image-split {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    width: 100%;
+    /* This ensures the container doesn't grow wider than the glass box */
+    box-sizing: border-box; 
+}
+
+.image-split img {
+    /* Use 50% so they always take up exactly half the available space */
+    width: calc(50% - 8px); 
+    height: auto;
+    aspect-ratio: 16 / 9; /* Keeps them perfectly shaped even when small */
+    object-fit: cover;
+    border-radius: 10px;
+    /* Remove flex: 1 as it can cause 'shoving' behavior */
+    flex: none; 
+}
+
+/* 3. THE SQUASH PROTECTOR (Media Query) */
+@media (max-width: 768px) {
+    .image-split {
+        flex-direction: column; /* Force stack on mobile/minimized */
+    }
+    
+    .image-split img {
+        flex: none;            /* Kills the flex math for mobile */
+        width: 100%;
+    }
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+}
+.image-grid img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}/* This prevents the button from stretching to full width */
+.back-button-container {
+    display: flex;
+    justify-content: flex-start; /* Keeps it on the left */
+    width: 100%;
+}
+/* TABLET VIEW: Change 3 columns to 2 */
+@media (max-width: 900px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px; /* Slightly tighter gap for smaller screens */
+    }
+}
+
+/* MOBILE VIEW: Change to 1 column so images are large and clear */
+@media (max-width: 600px) {
+    .image-grid {
+        grid-template-columns: 1fr; /* Stacks images vertically */
+        gap: 15px; /* Adds more space between stacked images */
+    }
+    
+    .image-grid img {
+        height: 200px; /* Optional: forces a consistent height when stacked */
+    }
+}
+
+#back-btn {
+    background: #ff4b2b;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    
+    /* CRITICAL: This stops the stretch */
+    width: auto; 
+    display: inline-block; 
+    margin-bottom: 20px;
+}
+
+#back-btn:hover {
+    background: #ff310d;
+    transform: scale(1.05);
+}
+/* This only targets text inside the review view */
+.full-review-active {
+    color: #ffffff !important;
+}
+
+.full-review-active p {
+    color: #ffffff !important;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+.full-review-active h2, 
+.full-review-active h3 {
+    color: #ffffff !important;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Optional: Add a slight dark tint to the background only during review 
+   to make the white text pop even more */
+.full-review-active {
+    background: rgba(0, 0, 0, 0.2); 
+    padding: 20px;
+    border-radius: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 1. Main Background Section */
+.legal-parallax-container {
+    width: 90%;
+    margin: 40px auto;
+    min-height: 80vh;
+    /* Lightened the overlay from 0.4 to 0.3 to let the background pop more */
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../pics/Game time.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 40px 20px; 
+    box-sizing: border-box;
+}
+
+/* 2. Selection Glow Effect */
+/* This makes the text glow when you highlight/select it */
+::selection {
+    background: rgba(255, 70, 85, 0.3);
+    color: #ffffff;
+    text-shadow: 0 0 10px #ff4655;
+}
+
+/* 3. ALIGNMENT WRAPPER */
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. THE GLASS BOX - Lighter & Blended */
+.legal-body-scroll {
+    /* Changed to a very light white-tinted glass */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(15px) saturate(160%); 
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px; 
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 5. THE PRO REVIEW CARD - With Hover Lift */
+.pro-review-card {
+    display: flex;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.75); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    min-height: 400px;
+    /* Smooth transition for the hover effect */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border 0.4s ease;
+    cursor: pointer;
+}
+
+/* Hover State: Lift and Glow */
+.pro-review-card:hover {
+    transform: translateY(-10px); 
+    border-color: rgba(255, 70, 85, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Left side (Image) */
+.review-left {
+    flex: 1;
+    position: relative;
+    min-width: 300px;
+}
+
+.review-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* Optional: Slight zoom on hover */
+    transition: transform 0.5s ease;
+}
+
+.pro-review-card:hover .review-img {
+    transform: scale(1.05);
+}
+
+/* Right side (Text) */
+.review-right {
+    flex: 1.2;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(35, 35, 35, 0.8); /* Semi-transparent for better blending */
+    backdrop-filter: blur(5px);
+}
+
+.game-title {
+    font-size: 2rem;
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    /* Subtle glow for the title */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.editor-tag {
+    color: #ff4655;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.review-intro {
+   color: #bbbbbb;
+    line-height: 1.6; /* Increased for better readability */
+    font-size: 1rem;
+    margin-bottom: 25px;
+    /* ADD THESE FOR THE PRO LOOK */
+    text-align: left; 
+    letter-spacing: 0.2px;
+    text-justify: inter-word; /* Helps spacing stay even */
+       /* Gives the letters room to breathe */
+    opacity: 0.9;
+    max-width: 90%;
+}
+
+/* The Button */
+.pro-btn {
+    align-self: flex-start;
+    padding: 12px 25px;
+    border: 2px solid #ff4655;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+    background: transparent;
+}
+
+.pro-btn:hover {
+    background: #ff4655;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: white;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    border-left: 6px solid #ff4655;
+    padding-left: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 70, 85, 0.3);
+}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .pro-review-card {
+        flex-direction: column; /* Stacks image on top, text on bottom */
+        min-height: auto;
+        margin-top: 60px; /* Extra space for the pop-out on mobile */
+    }
+
+    .review-left {
+        width: 100%;
+        min-width: 100%;
+        height: 250px; /* Gives the image a fixed height on mobile */
+    }
+
+    .review-img {
+        border-radius: 15px 15px 0 0; /* Rounds top corners instead of left side */
+    }
+
+    .review-right {
+        width: 100%;
+        padding: 20px;
+        border-radius: 0 0 15px 15px; /* Rounds bottom corners */
+    }
+
+    .game-title {
+        font-size: 1.8rem; /* Shrinks title slightly for small screens */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.credentials-section {
+  background-color: #f0f0f0; /* Slightly lighter gray for better contrast */
+  padding: 30px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%; /* Matches your Welcome Section width */
+  margin: 0 auto;
+}
+
+/* Typography Polish */
+.credits-label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+ color: #444;
+  margin: 0 0 12px 0;/* This ensures the font matches the rest of Pocket Pixels */
+
+}
+
+/* Social Icon Interactions */
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  font-size: 19px;
+  color: #444;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Individual Brand Colors on Hover (The 'Premium' Touch) */
+.social-icons a:hover {
+  transform: translateY(-5px) scale(1.2);
+}
+
+.icon-fb:hover { color: #1877F2; }
+.icon-ig:hover { color: #E4405F; }
+.icon-tk:hover { color: #000000; }
+.icon-x:hover { color: #ff4b2b; } /* The X theme color or your site accent */
+
+/* Logo Alignment */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  line-height: 0.9;
+}
+
+.footer-logo .logo-top { font-size: 14px; font-weight: 600; color: #777; }
+.footer-logo .logo-bottom { font-size: 26px; font-weight: 800; color: #222; }
+
+/* Mobile Responsiveness (The Final 10/10 Step) */
+@media (max-width: 768px) {
+  .credentials-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .footer-logo .logo-text {
+    text-align: left; /* Realigns text when stacked on mobile */
+  }
+  
+  .credentials-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Center Column Styling */
+.credentials-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.credentials-center a {
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  transition: color 0.3s ease;
+}
+
+.credentials-center a:hover {
+  color: #ff4b2b;
+}
+
+.credentials-center .dot {
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* Ensure the other columns don't shift */
+.credentials-left, .footer-logo {
+  flex: 1; /* Gives equal weight to left and right to keep center truly centered */
+}
+
+.footer-logo {
+  justify-content: flex-end; /* Keeps logo pushed to the right */
+}
+
+.credentials-left {
+  text-align: left;
+}
+footer {
+  background-color: black; /* Matches your footer color */
+  color: white;           /* Ensures text is visible */
+  padding: 20px 0;        /* Adds vertical breathing room without extra "gaps" */
+  width: 100%;            /* Ensures it spans the full browser width */
+  margin: 0;              /* Removes outside spacing */
+  text-align: center;
+}
+
+footer p {
+  margin: 0;              /* CRITICAL: Removes the default browser gap above/below text */
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+}
