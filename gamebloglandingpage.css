@@ -1,0 +1,768 @@
+/* --- Global Reset --- */
+body{
+  margin: 0;
+  padding: 0;
+}
+/* --- Base Header Styling --- */
+.main-header {
+  display: flex;
+  justify-content: space-between; /* Logo left, Nav right */
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #FAF9F6;
+  position: relative;
+  z-index: 1000;
+}
+
+/* --- Logo Grid (From previous step) --- */
+.logo-layout {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  align-items: end;
+  line-height: 0.8;
+}
+.logo-top { grid-column: 1; grid-row: 1; font-size: 18px; margin: 0; }
+.logo-bottom { grid-column: 1 / span 2; grid-row: 2; font-size: 28px; margin: 0; font-weight: 800; }
+.logo-icon { grid-column: 2; grid-row: 1; width: 40px; }
+
+/* --- Navigation & Underline --- */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a.active::after, .nav-links a:hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0; left: 0;
+  background: #ff4b2b;
+}
+
+/* --- The "Auto-Hide" Logic for Laptop/Mobile --- */
+#nav-check { display: none; } /* Hide the actual checkbox */
+.nav-toggler { display: none; cursor: pointer; } /* Hide button on big screens */
+
+@media (max-width: 800px) {
+  .nav-toggler {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .nav-toggler span {
+    width: 25px; height: 3px; background: #333; border-radius: 2px;
+  }
+
+  .nav-links {
+    display: none; /* THIS REMOVES THE LINKS WHEN MINIMIZED */
+    position: absolute;
+    top: 100%; left: 0; width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .nav-links a { margin: 10px 0; font-size: 16px; }
+
+  /* When checkbox is clicked via the toggler, show the links */
+  #nav-check:checked ~ .nav-links {
+    display: flex;
+  }
+}
+/* --- Header Fix --- */
+
+/* Container for the text + icon */
+.logo-wrapper {
+  display: flex;
+  align-items: center; /* Vertically aligns icon with the text center */
+  text-decoration: none; /* Removes underline if you use an <a> tag */
+  gap: 2px; /* Space between text and gamepad */
+}
+
+/* Keeps POCKET and PIXELS stacked */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85; /* Brings the two words closer together vertically */
+}
+
+.logo-top {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.logo-bottom {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 32px; /* Larger as seen in the target image */
+  color: #444;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -1px; /* Tighter look */
+}
+
+/* Icon Sizing */
+.logo-icon {
+  width: 65px; /* Adjust to match your preference */
+  height: auto;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); /* Adds subtle depth */
+}
+/* 1. Define the movement */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); } /* Moves up 8 pixels */
+  100% { transform: translateY(0px); }
+}
+
+/* 2. Apply it to your icon */
+.logo-icon {
+  width: 50px;
+  height: auto;
+  animation: float 3s ease-in-out infinite; /* Runs forever */
+}
+/* Smooth transition for the icon and text */
+.logo-wrapper {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* When you hover over the logo area */
+.logo-wrapper:hover {
+  transform: scale(1.05); /* Entire logo grows slightly */
+}
+
+.logo-wrapper:hover .logo-icon {
+  transform: rotate(15deg); /* Gamepad tilts playfully */
+  filter: drop-shadow(0 0 8px rgba(255, 75, 43, 0.6)); /* Adds a glow */
+}
+
+
+
+
+.nav-links a {
+  font-family: 'Segoe UI', sans-serif;
+  text-decoration: none;
+  color: black;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* --- Parallax Section Fix --- */
+.welcome-section {
+  width: 90%;               /* Restores the 80% width look */
+  margin: 40px auto;        /* Centers the section on the page */
+  min-height: 70vh;         /* Image height */
+  background-image: url("../pics/Backgroundfinal.jpg");
+  background-attachment: fixed; 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.intro-box {
+  background-color: rgba(80, 79, 79, 0.7); /* Dark semi-transparent box */
+  backdrop-filter: blur(10px);          /* Glass effect */
+  color: white;
+  padding: 40px;
+  width: 85%;
+  max-width: 700px;
+  border-radius: 15px;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Segoe UI', sans-serif;
+
+}
+
+/* --- Button & Footer Spacing --- */
+.cta-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: linear-gradient(45deg, #1e3187, #ff4b2b);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+}
+.cta-button:hover {
+  box-shadow: 0 0 15px rgba(255, 75, 43, 0.5);
+}
+
+.extra-links {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.extra-links a {
+  display: block;
+  margin: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Remove gaps from the very edge of the browser */
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  padding-bottom: 5px; /* Space for the underline */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* The hover underline effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff4b2b; /* Matches your button color */
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* Line grows to full width on hover */
+}
+
+.nav-links a:hover {
+  color: #ff4b2b;
+}
+
+/* The 'Selected' or Active state */
+.nav-links a.active::after {
+  width: 100%; /* Line stays full width for the current page */
+}
+
+.nav-links a.active {
+  color: #ff4b2b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- Content Sections Layout --- */
+.content-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;       /* Space between the two main blocks */
+  padding: 40px 5%;
+  max-width: 1200px;
+  margin: 0 auto;  /* Centers the content area */
+}
+
+.section-group {
+  display: flex;
+  align-items: center; /* Vertically centers text with the image */
+  gap: 40px;           /* Space between the text and the image */
+}
+
+/* This class flips the order so the image is on the left for the second section */
+.section-group.reverse {
+  flex-direction: row-reverse;
+}
+/* --- Larger Section Titles --- */
+.section-text h3 {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 36px;   /* Large, readable headers */
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 800;
+  line-height: 1.1;  /* Prevents gaps between lines in long titles */
+}
+/* Styling for the main content paragraphs */
+.section-text p {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;         /* Increased from default for better readability */
+  line-height: 1.8;       /* Adds space between lines to prevent "wall of text" */
+  color: #555;            /* Slightly softer than pure black for eye comfort */
+  margin-bottom: 25px;    /* Space before the next section or button */
+}
+
+/* Styling for the Welcome/Intro paragraph specifically */
+.intro-box p {
+  font-size: 19px;         /* The intro should be slightly larger than body text */
+  line-height: 1.7;
+  font-weight: 400;        /* Keep it clean and light */
+  color: #ffffff;         /* Keep it white for the glassmorphism effect */
+}
+
+.section-text {
+  flex: 1; /* Makes the text box take up 50% */
+}
+
+.section-image {
+  flex: 1; /* Makes the image take up 50% */
+  width: 100%;
+  height: 300px;      /* Fixed height for a clean look */
+  object-fit: cover;  /* Crops the image to fit without stretching */
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Mobile Fix: Stacks them vertically when the screen is too narrow */
+@media (max-width: 800px) {
+  .section-group, .section-group.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  
+}.featured-games {
+  padding: 60px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title.center {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+  gap: 25px;
+}
+
+
+.game-card {
+  background: #eee7e7;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+
+
+.rating-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(239, 222, 69, 0.9); /* Your theme red/orange */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.card-info {
+  padding: 20px;
+}
+
+.card-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card-info p {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 15px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.read-more {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'Segoe UI', sans-serif;
+}
+.read-more:hover {
+    color: #ff4655; /* Signature red */
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.6); /* Red glow */
+    letter-spacing: 0.5px; /* Slight expansion effect */
+}
+
+/* Mobile Fix */
+@media (max-width: 900px) {
+  .games-grid { grid-template-columns: repeat(2, 1fr); } /* 2 per row on tablets */
+}
+@media (max-width: 600px) {
+  .games-grid { grid-template-columns: 1fr; } /* 1 per row on phones */
+}
+/* The Outer Section: This handles the background and Parallax */
+.bottom-parallax-container {
+  width: 95%; /* Slightly wider to look like the intro */
+  margin: 80px auto; 
+  min-height: 60vh; /* '60vh' makes it shorter/smaller than the '70vh' intro */
+  background-image: url("../pics/bottom\ nav.jpg"); /* Replace with your image name */
+  background-attachment: fixed; /* THIS ENABLES PARALLAX */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* The Inner Box: This matches your 'intro-box' glass effect */
+.nav-info-box {
+  /* Dark semi-transparent tint */
+  backdrop-filter: blur(12px);             /* The frosted glass blur */
+  -webkit-backdrop-filter: blur(12px);     /* Support for Safari */
+  color: white;
+  padding: 40px;
+  width: 80%;
+  max-width: 600px; /* Smaller than the intro's 700px to look 'compact' */
+  border-radius: 20px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.nav-info-box h4 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.nav-info-box p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Styling the preview image to fit perfectly */
+.nav-preview-img {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  margin: 20px auto 0;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+/* Animation for the text itself */
+/* Animation that matches your text color */
+@keyframes text-glow-pulse {
+  0% { 
+    text-shadow: 0 0 0px transparent;
+  }
+  50% { 
+    /* This creates three layers of glow using your existing text color */
+    text-shadow: 
+      0 0 8px currentColor, 
+      0 0 15px currentColor, 
+      0 0 30px rgba(255, 254, 254, 0.5); /* Adds a white core for brightness */
+    transform: scale(1.1); /* Optional: slightly grows the text for a "pop" effect */
+  }
+  100% { 
+    text-shadow: 0 0 0px transparent;
+    transform: scale(1);
+  }
+}
+
+.nav-glow-active {
+  display: inline-block; /* Required for the transform/scale to work */
+  transition: all 0.3s ease;
+  animation: text-glow-pulse 1.5s ease-in-out;
+}
+/* Full screen overlay */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0f0f0f; /* Matches your theme */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Stay on top of everything */
+    transition: opacity 0.6s ease-out, visibility 0.6s;
+}
+
+/* Content inside the loader */
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px #ff4655; /* Your signature glow */
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loader-bar {
+    width: 0;
+    height: 3px;
+    background: #ff4655;
+    box-shadow: 0 0 10px #ff4655;
+    animation: loadingWidth 2s infinite;
+}
+
+/* Hidden state */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes loadingWidth {
+    0% { width: 0; }
+    50% { width: 50%; }
+    100% { width: 100%; }
+}
+.main-header {
+    position: relative; /* This must be here for z-index to work */
+    z-index: 9999;      /* Brings the header to the very front */
+}
+
+.nav-links {
+    position: relative;
+    z-index: 10000;     /* Ensures links are above any header backgrounds */
+    pointer-events: auto; /* Explicitly tells the browser to allow clicks */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 10/10 Layout Precision */
+.credentials-section {
+  background-color: #f0f0f0; /* Slightly lighter gray for better contrast */
+  padding: 30px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%; /* Matches your Welcome Section width */
+  margin: 0 auto;
+}
+
+/* Typography Polish */
+.credits-label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+ color: #444;
+  margin: 0 0 12px 0;/* This ensures the font matches the rest of Pocket Pixels */
+
+}
+
+/* Social Icon Interactions */
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  font-size: 19px;
+  color: #444;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Individual Brand Colors on Hover (The 'Premium' Touch) */
+.social-icons a:hover {
+  transform: translateY(-5px) scale(1.2);
+}
+
+.icon-fb:hover { color: #1877F2; }
+.icon-ig:hover { color: #E4405F; }
+.icon-tk:hover { color: #000000; }
+.icon-x:hover { color: #ff4b2b; } /* The X theme color or your site accent */
+
+/* Logo Alignment */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  line-height: 0.9;
+}
+
+.footer-logo .logo-top { font-size: 14px; font-weight: 600; color: #777; }
+.footer-logo .logo-bottom { font-size: 26px; font-weight: 800; color: #222; }
+
+/* Mobile Responsiveness (The Final 10/10 Step) */
+@media (max-width: 768px) {
+  .credentials-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .footer-logo .logo-text {
+    text-align: left; /* Realigns text when stacked on mobile */
+  }
+  
+  .credentials-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Center Column Styling */
+.credentials-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.credentials-center a {
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  transition: color 0.3s ease;
+}
+
+.credentials-center a:hover {
+  color: #ff4b2b;
+}
+
+.credentials-center .dot {
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* Ensure the other columns don't shift */
+.credentials-left, .footer-logo {
+  flex: 1; /* Gives equal weight to left and right to keep center truly centered */
+}
+
+.footer-logo {
+  justify-content: flex-end; /* Keeps logo pushed to the right */
+}
+
+.credentials-left {
+  text-align: left;
+}
+footer {
+  background-color: black; /* Matches your footer color */
+  color: white;           /* Ensures text is visible */
+  padding: 20px 0;        /* Adds vertical breathing room without extra "gaps" */
+  width: 100%;            /* Ensures it spans the full browser width */
+  margin: 0;              /* Removes outside spacing */
+  text-align: center;
+}
+
+footer p {
+  margin: 0;              /* CRITICAL: Removes the default browser gap above/below text */
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+}

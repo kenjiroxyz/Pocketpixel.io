@@ -1,0 +1,769 @@
+* { box-sizing: border-box; }
+body{
+  margin: 0;
+  padding: 0;
+   font-family: 'Segoe UI', sans-serif;
+}
+/* --- Base Header Styling --- */
+.main-header {
+  display: flex;
+  justify-content: space-between; /* Logo left, Nav right */
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #FAF9F6;
+  position: relative;
+  z-index: 1000;
+}
+
+/* --- Logo Grid (From previous step) --- */
+.logo-layout {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  align-items: end;
+  line-height: 0.8;
+}
+.logo-top { grid-column: 1; grid-row: 1; font-size: 18px; margin: 0; }
+.logo-bottom { grid-column: 1 / span 2; grid-row: 2; font-size: 28px; margin: 0; font-weight: 800; }
+.logo-icon { grid-column: 2; grid-row: 1; width: 40px; }
+
+/* --- Navigation & Underline --- */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a.active::after, .nav-links a:hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0; left: 0;
+  background: #ff4b2b;
+}
+
+/* --- The "Auto-Hide" Logic for Laptop/Mobile --- */
+#nav-check { display: none; } /* Hide the actual checkbox */
+.nav-toggler { display: none; cursor: pointer; } /* Hide button on big screens */
+
+@media (max-width: 800px) {
+  .nav-toggler {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .nav-toggler span {
+    width: 25px; height: 3px; background: #333; border-radius: 2px;
+  }
+
+  .nav-links {
+    display: none; /* THIS REMOVES THE LINKS WHEN MINIMIZED */
+    position: absolute;
+    top: 100%; left: 0; width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .nav-links a { margin: 10px 0; font-size: 16px; }
+
+  /* When checkbox is clicked via the toggler, show the links */
+  #nav-check:checked ~ .nav-links {
+    display: flex;
+  }
+}
+/* --- Header Fix --- */
+
+/* Container for the text + icon */
+.logo-wrapper {
+  display: flex;
+  align-items: center; /* Vertically aligns icon with the text center */
+  text-decoration: none; /* Removes underline if you use an <a> tag */
+  gap: 2px; /* Space between text and gamepad */
+}
+
+/* Keeps POCKET and PIXELS stacked */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85; /* Brings the two words closer together vertically */
+}
+
+.logo-top {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.logo-bottom {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 32px; /* Larger as seen in the target image */
+  color: #444;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -1px; /* Tighter look */
+}
+
+/* Icon Sizing */
+.logo-icon {
+  width: 65px; /* Adjust to match your preference */
+  height: auto;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); /* Adds subtle depth */
+}
+/* 1. Define the movement */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); } /* Moves up 8 pixels */
+  100% { transform: translateY(0px); }
+}
+
+/* 2. Apply it to your icon */
+.logo-icon {
+  width: 50px;
+  height: auto;
+  animation: float 3s ease-in-out infinite; /* Runs forever */
+}
+/* Smooth transition for the icon and text */
+.logo-wrapper {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* When you hover over the logo area */
+.logo-wrapper:hover {
+  transform: scale(1.05); /* Entire logo grows slightly */
+}
+
+.logo-wrapper:hover .logo-icon {
+  transform: rotate(15deg); /* Gamepad tilts playfully */
+  filter: drop-shadow(0 0 8px rgba(255, 75, 43, 0.6)); /* Adds a glow */
+}
+
+
+
+
+.nav-links a {
+  font-family: 'Segoe UI', sans-serif;
+  text-decoration: none;
+  color: black;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+}
+.extra-links {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.extra-links a {
+  display: block;
+  margin: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Remove gaps from the very edge of the browser */
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  padding-bottom: 5px; /* Space for the underline */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* The hover underline effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff4b2b; /* Matches your button color */
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* Line grows to full width on hover */
+}
+
+.nav-links a:hover {
+  color: #ff4b2b;
+}
+
+/* The 'Selected' or Active state */
+.nav-links a.active::after {
+  width: 100%; /* Line stays full width for the current page */
+}
+
+.nav-links a.active {
+  color: #ff4b2b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 1. THE OUTER PARALLAX SECTION */
+.legal-parallax-container {
+    width: 90%;
+    margin: 40px auto;
+    min-height: 80vh;
+    /* Lightened the overlay from 0.4 to 0.3 to let the background pop more */
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../pics/Gaming\ Room\ Poster\ 16x20.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 40px 20px; 
+    box-sizing: border-box;
+}
+
+/* 2. THE GLASS BOX (WRAPPER) */
+.legal-glass-box {
+  background: rgba(18, 18, 18, 0.7); /* Darker base for better text pop */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 95%;             /* Occupies more of the parallax container */
+  max-width: 1200px;      /* Higher cap to prevent crowding on large screens */
+  
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  
+}
+
+/* 3. THE CONTENT SCROLL AREA */
+.legal-body-scroll {
+  padding: 40px; /* Reduced from 60/80 to give the News Feed more room */
+ 
+  color: #f0f0f0;
+  text-align: left; 
+  line-height: 1.6; 
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* 4. THE NEWS ROW (THE BIG FIX) */
+.article-row {
+  /* Forces image and text side-by-side */
+  gap: 30px;
+  padding: 30px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: flex-start;
+  transition: background 0.3s ease;
+}
+
+.article-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* 5. THUMBNAIL SETTINGS */
+.article-thumbnail {
+  flex: 0 0 260px; /* Keeps the image at a consistent size */
+}
+
+.article-thumbnail img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* 6. TEXT CONTENT AREA */
+.article-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category-tag {
+  color: #ff4081; /* Pink accent color */
+  font-weight: bold;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.article-headline {
+  font-size: 1.7rem;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Subtle glow */
+}
+
+.article-summary {
+  font-style: italic;
+  color: #cccccc;
+  margin: 5px 0;
+}
+
+.article-footer {
+  font-size: 0.85rem;
+  color: #ffffff;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* 7. RESPONSIVE MOBILE FIX */
+@media (max-width: 800px) {
+  .article-row {
+    flex-direction: column; /* Stacks image on top of text on small screens */
+    gap: 20px;
+  }
+  .article-thumbnail {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .legal-body-scroll {
+    padding: 20px;
+  }
+}/* Ensure the scrollbar doesn't look ugly in the glass box */
+.legal-body-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.legal-body-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+/* Add a hover effect to your new game templates */
+.article-row {
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.article-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px); /* Slight nudge to the right when hovering */
+}
+/* THE OVERLAY CONTAINER */
+.tips-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    /* Reduced opacity from 0.95 to 0.4 to keep the background visible */
+    background: rgba(0, 0, 0, 0.4); 
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    backdrop-filter: blur(10px); /* This adds the frosted glass effect to the whole screen */
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+}
+
+/* THE INNER CONTENT BOX (The Glassmorphism Card) */
+.tips-overlay .legal-glass-box {
+    width: 95%;
+    max-width: 1000px;
+    max-height: 90vh;
+    /* This makes padding fluid so it doesn't squash the text */
+    padding: clamp(15px, 5vw, 40px); 
+    background: rgba(18, 18, 18, 0.8) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-y: auto;
+    position: relative;
+    margin: auto;
+}.tips-overlay .legal-glass-box::-webkit-scrollbar {
+    width: 6px; /* Very thin */
+}.tips-overlay .legal-glass-box::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2); /* Dark, transparent track */
+    border-radius: 10px;
+}.tips-overlay .legal-glass-box::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2); /* Subtle glass thumb */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tips-overlay .legal-glass-box::-webkit-scrollbar-thumb:hover {
+    background: #ff4655; /* Glows red when you hover/scroll */
+}
+
+/* THE SLIDE-UP ANIMATION */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* THE BACK BUTTON STYLING */
+.cta-button {
+    background: #ff4655; /* Keep your signature red */
+    color: white;
+    border: none;
+    
+    /* THE FIX: Use a high px value for a 'pill' shape */
+    padding: 10px 24px;
+    border-radius: 50px; 
+    
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    
+    /* Soft shadow to give it depth on the glass */
+    box-shadow: 0 4px 15px rgba(255, 70, 85, 0.3);
+    transition: all 0.3s ease;
+    
+    /* Ensure it aligns nicely */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.cta-button:hover {
+    background: #ff5e3a;
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 6px 20px rgba(255, 70, 85, 0.5);
+}
+
+/* HIDDEN STATE */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.tips-detail-body {
+    margin-top: 40px;
+    color: white;
+}
+
+#view-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+#view-title {
+    text-shadow: 0 0 15px #ff4655; /* Your signature glow */
+}
+
+/* Re-using your hidden class from the loader */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.card-link-wrapper {
+    display: flex;          /* Re-enables side-by-side layout inside the link */
+    gap: 30px;              /* Restores the gap between image and text */
+    padding: 30px;          /* Restores the padding you lost */
+    text-decoration: none;  /* Removes the blue underline from headlines */
+    color: inherit;         /* Keeps your white/grey text colors */
+    width: 100%;
+    box-sizing: border-box; /* Prevents the box from leaking out the sides */
+    align-items: flex-start;
+}
+/* THE GRID CONTAINER */
+.tips-image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+/* INDIVIDUAL GRID IMAGES */
+.grid-photo {
+    width: 100%;
+    height: auto;
+    /* Keeps images from stretching or squishing */
+    aspect-ratio: 16 / 9; 
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 10px 0;
+    display: block;
+}
+
+.grid-photo:hover {
+    transform: scale(1.03);
+    border-color: #ff4655; /* Signature red glow on hover */
+}@media screen and (max-width: 800px) {
+    /* 1. RESET THE WRAPPERS: Kill flexbox columns and force everything to the left */
+    .tips-overlay .legal-glass-box,
+    .tips-detail-body,
+    .article-info,
+    .card-link-wrapper {
+        display: block !important;    /* Kills side-by-side flexbox */
+        width: 100% !important;
+        padding: 15px !important;     /* Shrinks the padding so text has room */
+        text-align: left !important;  /* Forces text back to the left edge */
+    }
+
+    /* 2. RESET THE TEXT: Stop headlines from thinking they need to leave room */
+    #view-title,
+    .article-headline,
+    .tips-detail-body p,
+    .article-summary {
+        margin-left: 0 !important;    /* Kills any left-side ghost margins */
+        padding-left: 0 !important;
+        width: 100% !important;
+        display: block !important;
+        word-wrap: break-word !important; /* Prevents long words from pushing right */
+    }
+
+    
+    #view-image,
+    .grid-photo,
+    .article-thumbnail {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 15px auto !important;
+        display: block !important;
+        float: none !important;      
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.credentials-section {
+  background-color: #f0f0f0; /* Slightly lighter gray for better contrast */
+  padding: 30px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%; /* Matches your Welcome Section width */
+  margin: 0 auto;
+}
+
+/* Typography Polish */
+.credits-label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+ color: #444;
+  margin: 0 0 12px 0;/* This ensures the font matches the rest of Pocket Pixels */
+
+}
+
+/* Social Icon Interactions */
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  font-size: 19px;
+  color: #444;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Individual Brand Colors on Hover (The 'Premium' Touch) */
+.social-icons a:hover {
+  transform: translateY(-5px) scale(1.2);
+}
+
+.icon-fb:hover { color: #1877F2; }
+.icon-ig:hover { color: #E4405F; }
+.icon-tk:hover { color: #000000; }
+.icon-x:hover { color: #ff4b2b; } /* The X theme color or your site accent */
+
+/* Logo Alignment */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  line-height: 0.9;
+}
+
+.footer-logo .logo-top { font-size: 14px; font-weight: 600; color: #777; }
+.footer-logo .logo-bottom { font-size: 26px; font-weight: 800; color: #222; }
+
+/* Mobile Responsiveness (The Final 10/10 Step) */
+@media (max-width: 768px) {
+  .credentials-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .footer-logo .logo-text {
+    text-align: left; /* Realigns text when stacked on mobile */
+  }
+  
+  .credentials-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Center Column Styling */
+.credentials-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.credentials-center a {
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  transition: color 0.3s ease;
+}
+
+.credentials-center a:hover {
+  color: #ff4b2b;
+}
+
+.credentials-center .dot {
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* Ensure the other columns don't shift */
+.credentials-left, .footer-logo {
+  flex: 1; /* Gives equal weight to left and right to keep center truly centered */
+}
+
+.footer-logo {
+  justify-content: flex-end; /* Keeps logo pushed to the right */
+}
+
+.credentials-left {
+  text-align: left;
+}
+footer {
+  background-color: black; /* Matches your footer color */
+  color: white;           /* Ensures text is visible */
+  padding: 20px 0;        /* Adds vertical breathing room without extra "gaps" */
+  width: 100%;            /* Ensures it spans the full browser width */
+  margin: 0;              /* Removes outside spacing */
+  text-align: center;
+}
+
+footer p {
+  margin: 0;              /* CRITICAL: Removes the default browser gap above/below text */
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+}

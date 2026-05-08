@@ -1,0 +1,602 @@
+body{
+  margin: 0;
+  padding: 0;
+   font-family: 'Segoe UI', sans-serif;
+}
+/* --- Base Header Styling --- */
+.main-header {
+  display: flex;
+  justify-content: space-between; /* Logo left, Nav right */
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #FAF9F6;
+  position: relative;
+  z-index: 1000;
+}
+
+/* --- Logo Grid (From previous step) --- */
+.logo-layout {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  align-items: end;
+  line-height: 0.8;
+}
+.logo-top { grid-column: 1; grid-row: 1; font-size: 18px; margin: 0; }
+.logo-bottom { grid-column: 1 / span 2; grid-row: 2; font-size: 28px; margin: 0; font-weight: 800; }
+.logo-icon { grid-column: 2; grid-row: 1; width: 40px; }
+
+/* --- Navigation & Underline --- */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a.active::after, .nav-links a:hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0; left: 0;
+  background: #ff4b2b;
+}
+
+/* --- The "Auto-Hide" Logic for Laptop/Mobile --- */
+#nav-check { display: none; } /* Hide the actual checkbox */
+.nav-toggler { display: none; cursor: pointer; } /* Hide button on big screens */
+
+@media (max-width: 800px) {
+  .nav-toggler {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .nav-toggler span {
+    width: 25px; height: 3px; background: #333; border-radius: 2px;
+  }
+
+  .nav-links {
+    display: none; /* THIS REMOVES THE LINKS WHEN MINIMIZED */
+    position: absolute;
+    top: 100%; left: 0; width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .nav-links a { margin: 10px 0; font-size: 16px; }
+
+  /* When checkbox is clicked via the toggler, show the links */
+  #nav-check:checked ~ .nav-links {
+    display: flex;
+  }
+}
+/* --- Header Fix --- */
+
+/* Container for the text + icon */
+.logo-wrapper {
+  display: flex;
+  align-items: center; /* Vertically aligns icon with the text center */
+  text-decoration: none; /* Removes underline if you use an <a> tag */
+  gap: 2px; /* Space between text and gamepad */
+}
+
+/* Keeps POCKET and PIXELS stacked */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85; /* Brings the two words closer together vertically */
+}
+
+.logo-top {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.logo-bottom {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 32px; /* Larger as seen in the target image */
+  color: #444;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -1px; /* Tighter look */
+}
+
+/* Icon Sizing */
+.logo-icon {
+  width: 65px; /* Adjust to match your preference */
+  height: auto;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); /* Adds subtle depth */
+}
+/* 1. Define the movement */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); } /* Moves up 8 pixels */
+  100% { transform: translateY(0px); }
+}
+
+/* 2. Apply it to your icon */
+.logo-icon {
+  width: 50px;
+  height: auto;
+  animation: float 3s ease-in-out infinite; /* Runs forever */
+}
+/* Smooth transition for the icon and text */
+.logo-wrapper {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* When you hover over the logo area */
+.logo-wrapper:hover {
+  transform: scale(1.05); /* Entire logo grows slightly */
+}
+
+.logo-wrapper:hover .logo-icon {
+  transform: rotate(15deg); /* Gamepad tilts playfully */
+  filter: drop-shadow(0 0 8px rgba(255, 75, 43, 0.6)); /* Adds a glow */
+}
+
+
+
+
+.nav-links a {
+  font-family: 'Segoe UI', sans-serif;
+  text-decoration: none;
+  color: black;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+}
+.extra-links {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.extra-links a {
+  display: block;
+  margin: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Remove gaps from the very edge of the browser */
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  padding-bottom: 5px; /* Space for the underline */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* The hover underline effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff4b2b; /* Matches your button color */
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* Line grows to full width on hover */
+}
+
+.nav-links a:hover {
+  color: #ff4b2b;
+}
+
+/* The 'Selected' or Active state */
+.nav-links a.active::after {
+  width: 100%; /* Line stays full width for the current page */
+}
+
+.nav-links a.active {
+  color: #ff4b2b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 1. Main Background Section */
+.news-page-container {
+    width: 85%;
+    max-width: 1300px;
+    margin: 40px auto;
+    min-height: 70vh;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("../pics/newsbackgrounding.jpg");
+    background-attachment: fixed; 
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    padding: 60px 40px; /* Increased padding for breathing room */
+}
+
+/* 2. Glass Container for the News Content */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    background-color: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    
+    /* ADD THIS to ensure the grid doesn't collapse */
+    align-items: stretch;
+}
+
+/* 3. The Red Accent Title */
+.section-title {
+    font-size: 2.5rem;
+    color: white;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    border-left: 6px solid #ff4655; /* Gaming accent color */
+    padding-left: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* 4. Feature Card Rules (The big Valorant card) */
+.news-card:first-child {
+    grid-column: span 2; /* Spans 2 out of 3 columns */
+}
+
+.news-card:first-child .image-wrapper img {
+    height: 400px; /* Taller image for the feature */
+}
+
+/* 5. Standard News Card Styles */
+.news-card {
+    background: #121212; /* Subtle card background */
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+}
+
+.news-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff4655;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 220px; /* Standard height for smaller cards */
+    object-fit: cover;
+    display: block;
+}
+
+.news-text {
+    padding: 25px;
+}
+
+.category-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #ff4655; /* Consistent red for badges */
+    color: #fff;
+    display: inline-block;
+}
+
+.news-text h3 {
+    margin: 15px 0 10px;
+    font-size: 1.4rem;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 15px;
+    color: #ff4655;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.read-more:hover {
+    letter-spacing: 1px;
+}
+
+ .btn-load-more{
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: linear-gradient(45deg, #1e3187, #ff4b2b);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+}
+.btn-load-more:hover {
+  box-shadow: 0 0 15px rgba(255, 75, 43, 0.5);
+}
+
+@media (max-width: 1024px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr); /* Drop to 2 columns for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .news-grid {
+        grid-template-columns: 1fr; /* 1 column for mobile */
+        padding: 20px;
+    }
+    
+    .news-card:first-child {
+        grid-column: span 1; /* Reset the feature card span on mobile */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.credentials-section {
+  background-color: #f0f0f0; /* Slightly lighter gray for better contrast */
+  padding: 30px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%; /* Matches your Welcome Section width */
+  margin: 0 auto;
+}
+
+/* Typography Polish */
+.credits-label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+ color: #444;
+  margin: 0 0 12px 0;/* This ensures the font matches the rest of Pocket Pixels */
+
+}
+
+/* Social Icon Interactions */
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  font-size: 19px;
+  color: #444;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Individual Brand Colors on Hover (The 'Premium' Touch) */
+.social-icons a:hover {
+  transform: translateY(-5px) scale(1.2);
+}
+
+.icon-fb:hover { color: #1877F2; }
+.icon-ig:hover { color: #E4405F; }
+.icon-tk:hover { color: #000000; }
+.icon-x:hover { color: #ff4b2b; } /* The X theme color or your site accent */
+
+/* Logo Alignment */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  line-height: 0.9;
+}
+
+.footer-logo .logo-top { font-size: 14px; font-weight: 600; color: #777; }
+.footer-logo .logo-bottom { font-size: 26px; font-weight: 800; color: #222; }
+
+/* Mobile Responsiveness (The Final 10/10 Step) */
+@media (max-width: 768px) {
+  .credentials-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .footer-logo .logo-text {
+    text-align: left; /* Realigns text when stacked on mobile */
+  }
+  
+  .credentials-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Center Column Styling */
+.credentials-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.credentials-center a {
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  transition: color 0.3s ease;
+}
+
+.credentials-center a:hover {
+  color: #ff4b2b;
+}
+
+.credentials-center .dot {
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* Ensure the other columns don't shift */
+.credentials-left, .footer-logo {
+  flex: 1; /* Gives equal weight to left and right to keep center truly centered */
+}
+
+.footer-logo {
+  justify-content: flex-end; /* Keeps logo pushed to the right */
+}
+
+.credentials-left {
+  text-align: left;
+}
+footer {
+  background-color: black; /* Matches your footer color */
+  color: white;           /* Ensures text is visible */
+  padding: 20px 0;        /* Adds vertical breathing room without extra "gaps" */
+  width: 100%;            /* Ensures it spans the full browser width */
+  margin: 0;              /* Removes outside spacing */
+  text-align: center;
+}
+
+footer p {
+  margin: 0;              /* CRITICAL: Removes the default browser gap above/below text */
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+}
+/* Hide content completely */
+/* Keeps page 2 invisible on initial load */
+.hidden {
+    display: none !important;
+}
+
+/* Animation for a smooth slide-up effect when switching */
+.fade-in-active {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
